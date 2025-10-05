@@ -84,7 +84,7 @@ const texts = [
     }
 
     function connectWebSocket() {
-      socket = new WebSocket("wss://1x-bet.mobi/games-frame/sockets/crash?ref=1&gr=54&whence=110&fcountry=192&appGuid=games-web-app-default-web-v2&lng=ar");
+      socket = new WebSocket("wss://eg1xbet.com/games-frame/sockets/crash?appGuid=00000000-0000-0000-0000-000000000000&whence=110&fcountry=66&ref=1&gr=0&lng=ar")
       socket.onopen = function () {
         setSignal(true);
         socket.send('{"protocol":"json","version":1}\x1e');
