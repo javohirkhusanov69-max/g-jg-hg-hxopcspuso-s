@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ByTrox PREDICTOR</title>
+  <title>B¥ŦRØX PRΞDICŦØR</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -23,23 +23,23 @@
       transition: all 0.3s ease;
     }
 
-    /* === HEADER (QIZIL BG, OQ TEXT) === */
-    .top-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: linear-gradient(90deg, #ff0000 0%, #cc0000 50%, #ff0000 100%);
-      color: #fff;
-      padding: 15px 50px 15px 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(255, 0, 0, 0.3);
-      height: 59px;
-      border-bottom: 2px solid #b00000;
-    }
+    /* === HEADER (150% QIZIL BG, OQ TEXT) === */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(90deg, #ff0000 0%, #b30000 50%, #ff0000 100%);
+  color: #fff;
+  padding: 15px 50px 15px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(255, 0, 0, 0.5);
+  height: 59px;
+  border-bottom: 2px solid #800000;
+}
 
     .header-text {
   position: absolute;
@@ -84,7 +84,8 @@
       color: red;
       font-size: 15px;
       margin-top: 5px;
-    }
+      font-weight: 900;
+     }
 
     .grid-container {
       display: grid;
@@ -100,7 +101,7 @@
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
-      border: 2.9px solid #ccc;
+      border: 5px solid #ccc;
       display: flex;
       flex-direction: column;
       aspect-ratio: 1/1.2;
@@ -148,8 +149,8 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      background: #d9d9d9;
-      border-top: 2px solid #b3b3b3;
+      background: linear-gradient(90deg, #ff0000 0%, #b30000 50%, #ff0000 100%);
+      border-top: 2px solid red;
       display: flex;
       justify-content: space-around;
       padding: 12px 0;
@@ -161,20 +162,24 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: #ff0000;
+      color: white;
       font-size: 12px;
       text-decoration: none;
       transition: all 0.3s ease;
+      font-weight: 900;
     }
 
     .nav-item i {
       font-size: 20px;
+      font-weight: 900;
       margin-bottom: 3px;
     }
 
     .nav-item.active {
-      color: #ff0000;
-    }
+      color: white;
+     font-weight: 900;
+}
+
 
     @media (max-width: 400px) {
       .grid-container {
@@ -182,7 +187,9 @@
       }
       .header-text {
         font-size: 16px;
-      }
+        font-weight: 900;
+     }
+    
     }
 
     @media (min-width: 600px) {
@@ -196,9 +203,9 @@
   <div class="app-container">
     <div class="top-bar" id="header">
       <div class="header-text" id="header-text-0">AVIATOR PREDICTOR</div>
-      <div class="header-text" id="header-text-1">BYTROX PRΞDICŦØR ⚡️</div>
+      <div class="header-text" id="header-text-1">B¥ŦRØX PRΞDICŦØR ⚡️</div>
       <div class="header-text" id="header-text-2">FOLLOW ME ON MY TELEGRAM</div>
-      <div class="header-text active" id="header-text-3">B¥tROX SCRIPT ⚡</div>
+      <div class="header-text active" id="header-text-3">B¥ŦRØX SCRIPT ⚡</div>
       <div class="header-text" id="header-text-4">t.me/ByTrox_Nova</div>
     </div>
 
@@ -207,14 +214,14 @@
     </div>
 
     <div class="grid-container" id="gameGrid">
-      <div class="game-card"><img src="https://i.ytimg.com/vi/fA3KBPxw5ws/hqdefault.jpg" alt="1xbet" class="game-image"><div class="game-name">1xbet</div></div>
-      <div class="game-card"><img src="https://i.pinimg.com/736x/70/c1/62/70c162977cadb5c4e68bc5dfe717ba6c.jpg" alt="Melbet" class="game-image"><div class="game-name">Melbet</div></div>
-      <div class="game-card"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFLnLWe0_My8DMQJGzyIPv74rXCTHpadFul2qj_3Tr8DdsbTBp4qC_IR6L&s=10" alt="Linbet" class="game-image"><div class="game-name">Linbet</div></div>
-      <div class="game-card"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyfXss4_C8rjW9_5NpQMzAC2DUPHBMFCYwF7HyiIWwwjMGoRxgUkBoNSA&s=10" alt="888StarZ" class="game-image"><div class="game-name">888StarZ</div></div>
-      <div class="game-card"><img src="https://magicclick.partners/assets/images/1680278989.jpg" alt="1Win" class="game-image"><div class="game-name">1Win</div></div>
-      <div class="game-card"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2HhUta-3Vli3gaFoyXDEaHjcwvqiY4kQn7RnMFZvpN0gFf34Z_a9jyZJ&s=10" alt="Pin-Up" class="game-image"><div class="game-name">Pin-Up</div></div>
+      <div class="game-card"><img src="https://i.postimg.cc/sxj4tcCK/storage-emulated-0-Pictures-1762003956775.jpg" alt="1xbet" class="game-image"><div class="game-name">1xbet</div></div>
+      <div class="game-card"><img src="https://i.postimg.cc/MKhjBD3X/1762006777051.png" alt="Melbet" class="game-image"><div class="game-name">Melbet</div></div>
+      <div class="game-card"><img src="https://i.postimg.cc/rsfNcrqh/1762003945593.png" alt="Linbet" class="game-image"><div class="game-name">Linbet</div></div>
+      <div class="game-card"><img src="https://i.postimg.cc/gjgHdZGh/storage-emulated-0-Pictures-1762003954631.jpg" alt="888StarZ" class="game-image"><div class="game-name">888StarZ</div></div>
+      <div class="game-card"><img src="https://i.postimg.cc/RhgL9HvQ/1762003950868.png" alt="1Win" class="game-image"><div class="game-name">1Win</div></div>
+      <div class="game-card"><img src="https://i.postimg.cc/sxT4yh37/storage-emulated-0-Pictures-1762004040443.jpg" alt="Pin-Up" class="game-image"><div class="game-name">Pin-Up</div></div>
       <div class="game-card"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE98G8uJznRS65fSZ_c9c1x0-922ZCrE_oe-r0N-DpfA&s=10" alt="Dbbet" class="game-image"><div class="game-name">Db-Bet</div></div>
-      <div class="game-card"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPhD2MyLOx_wVlT1_5hdgelWNI_SjHnhS8r5vLXgAeyQ&s=10" alt="Mostbet" class="game-image"><div class="game-name">Mostbet</div></div>
+      <div class="game-card"><img src="https://i.postimg.cc/kGTv9b7Y/1762004035525.png" alt="Mostbet" class="game-image"><div class="game-name">Mostbet</div></div>
       <div class="game-card"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiq9ItgcrkG2Ci1yQN4xcyOxbG_JMjM0pW_fbLNfuzNA&s=10" alt="Aviator spribe" class="game-image"><div class="game-name">Aviator Spribe</div></div>
       <div class="game-card"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdKilHbqd5lzx-PIj1OLlfmmHhrcuuQ8BsDBpwCemgrg&s=10" alt="bet365" class="game-image"><div class="game-name">Bet365</div></div>
     </div>
