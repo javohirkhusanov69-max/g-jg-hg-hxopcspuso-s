@@ -79,7 +79,7 @@ document.getElementById("tgIcon").onclick=()=>window.open("https://t.me/bytrox_1
 document.getElementById("menuIcon").onclick=()=>location.href="index.html";
 function formatNumber(x){if(x===undefined||x===null||isNaN(Number(x)))return"0.00";let n=Number(x);return n.toFixed(2);}
 function updateNumber(x){crashValue.innerText=formatNumber(x);}
-const socket=new WebSocket("wss://1xlite-91918.bar/games-frame/sockets/crash?ref=1&gr=974&whence=55&fcountry=192&appGuid=games-web-host-b2c-web-v3&lng=en&v=1.5&");
+const socket=new WebSocket("wss://1xlite-91918.bar/games-frame/sockets/crash?ref=1&gr=974&whence=55&fcountry=192&appGuid=games-web-host-b2c-web-v3&lng=en");
 socket.onopen=()=>{
 socket.send('{"protocol":"json","version":1}\x1e');
 socket.send('{"arguments":[{"activity":30,"currency":119}],"invocationId":"0","target":"Guest","type":1}\x1e');
