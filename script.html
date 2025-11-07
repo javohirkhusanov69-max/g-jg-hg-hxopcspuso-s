@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BYTROX SCRIPT</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+@font-face{font-family:"CustomBold";src:url("bold.ttf") format("truetype");font-weight:900;}
+:root{--glow-strong:rgba(255,255,255,0.95);--glow-soft:rgba(255,255,255,0.45);}
+html,body{height:100%;margin:0;font-family:"CustomBold",Arial,sans-serif;background:url("https://i.postimg.cc/gkZ8mxg9/file-000000002de0620a99fce6778b9a34bb.png") center/cover no-repeat fixed;color:#000;display:flex;flex-direction:column;justify-content:space-between;align-items:center;}
+#fadeOverlay{position:fixed;inset:0;background:#000;z-index:999999;pointer-events:none;opacity:1;transition:opacity 3s ease;}
+.fade-out{opacity:0;visibility:hidden;}
+.top-bar-bg,.bottom-bar-bg{width:100%;height:75px;background:gray;position:fixed;left:0;z-index:1;}
+.top-bar-bg{top:0;box-shadow:0 0 10px rgba(0,0,0,0.25);}
+.bottom-bar-bg{bottom:0;box-shadow:0 -0.1px 5px rgba(0,0,0,0.25);}
+.top-bar{position:fixed;top:0;left:0;z-index:2;width:100%;height:75px;display:flex;justify-content:center;align-items:center;font-size:1.7em;color:#fff;pointer-events:none;}
+.bottom-bar{position:fixed;bottom:0;left:0;z-index:2;width:100%;height:75px;display:flex;justify-content:center;align-items:center;gap:18px;}
+#time{font-size:1.4em;position:absolute;left:50%;transform:translateX(-50%);color:white;pointer-events:none;}
+.avi-img{width:190px;height:auto;position:relative;z-index:4;transition:all .3s ease;}
+.orbit-container{width:300px;height:300px;display:flex;justify-content:center;align-items:center;pointer-events:none;z-index:3;}
+canvas{position:absolute;width:100%;height:100%;top:0;left:0;}
+#crashValue{position:relative;font-size:2.6em;color:#fff;text-align:center;z-index:5;pointer-events:none;}
+#signalStatus{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:gray;color:#fff;font-size:18px;padding:14px 16px;min-width:120px;border-radius:10px;text-align:center;z-index:9999;display:flex;justify-content:center;align-items:center;gap:8px;}
+.icon{width:50px;height:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;background:transparent;border:0;z-index:2;}
+.icon i{font-size:30px;}
+.white-glow{text-shadow:0 0 8px var(--glow-strong),0 0 0px var(--glow-soft);filter:drop-shadow(0 0 0px var(--glow-strong));}
+.icon.white-glow{color:#fff;}
+#menuIcon{position:absolute;left:25px;z-index:10;}
+#tgIcon{position:absolute;right:29px;z-index:10;}
+#animatedText,#time,#crashValue,#signalStatus,button,span,div{font-weight:900;font-family:"CustomBold",Arial,sans-serif;}
+@media(max-width:480px){
+.orbit-container{width:260px;height:260px;}
+.avi-img{width:150px;}
+#crashValue{font-size:2.2em;}
+}
+</style>
+</head>
+<body>
+<div id="fadeOverlay"></div>
+<div class="top-bar-bg"></div>
+<div class="bottom-bar-bg"></div>
+<div class="top-bar">
+<span id="animatedText" class="white-glow">B¥ŦRØX PRΞDICŦØR</span>
+</div>
+<div id="signalStatus" class="white-glow">SIGNAL OFF</div>
+<div id="orbitWrapper" class="orbit-container">
+<canvas id="orbitCanvas"></canvas>
+<p id="crashValue" class="white-glow">0.00</p>
+</div>
+<div class="bottom-bar">
+<div id="menuIcon" class="icon white-glow"><i class="fa-solid fa-house"></i></div>
+<div id="time">00:00 AM</div>
+<div id="tgIcon" class="icon white-glow"><i class="fa-solid fa-paper-plane"></i></div>
+</div>
+<script>
+window.onload=function(){document.getElementById("fadeOverlay").classList.add("fade-out");};
+const texts=["AVIATOR PREDICTOR","FOLLOW ME ON TELEGRAM","CONTRACT @ByTroX_1"];
+let currentIndex=0;
+const animatedText=document.getElementById("animatedText");
+function showNextText(){animatedText.style.transition="opacity 1s";animatedText.style.opacity=0;setTimeout(()=>{currentIndex=(currentIndex+1)%texts.length;animatedText.innerText=texts[currentIndex];animatedText.style.opacity=1;setTimeout(showNextText,2000);},1000);}
+setTimeout(showNextText,2000);
+function centerOrbit(){const orb=document.getElementById("orbitWrapper");orb.style.position="fixed";orb.style.top="50%";orb.style.left="50%";orb.style.transform="translate(-50%,-50%)";orb.style.margin="0";orb.style.padding="0";}
+centerOrbit();window.addEventListener("resize",centerOrbit);
+const crashValue=document.getElementById("crashValue");
+const signalStatus=document.getElementById("signalStatus");
+function setSignal(active){if(active){signalStatus.style.display="none"}else{signalStatus.style.display="flex"}}
+(function(){const canvas=document.getElementById("orbitCanvas");const ctx=canvas.getContext("2d");let w,h,animFrac=0;
+function resizeCanvas(){w=canvas.width=Math.max(1,canvas.offsetWidth*devicePixelRatio);h=canvas.height=Math.max(1,canvas.offsetHeight*devicePixelRatio);canvas.style.width=canvas.offsetWidth+"px";canvas.style.height=canvas.offsetHeight+"px";ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);}
+window.addEventListener("resize",resizeCanvas);resizeCanvas();
+function drawOrbit(r){ctx.save();ctx.beginPath();ctx.strokeStyle="rgba(255,255,255,0.95)";ctx.lineWidth=Math.max(2,Math.min(w,h)*0.012/devicePixelRatio);ctx.shadowBlur=36;ctx.shadowColor="rgba(255,255,255,0.95)";ctx.setLineDash([6,8]);ctx.lineDashOffset=-animFrac*150;ctx.arc(w/(2*devicePixelRatio),h/(2*devicePixelRatio),r,0,Math.PI*2);ctx.stroke();ctx.restore();}
+function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);drawOrbit(Math.min(w,h)*0.4/devicePixelRatio);animFrac+=0.01;requestAnimationFrame(draw);}
+draw();
+})();
+function updateTime(){const n=new Date();let h=n.getHours(),m=n.getMinutes();const ap=h>=12?"PM":"AM";h=h%12||12;document.getElementById("time").innerText=`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")} ${ap}`;}
+setInterval(updateTime,1000);
+updateTime();
+document.getElementById("tgIcon").onclick=()=>window.open("https://t.me/bytrox_1","_blank");
+document.getElementById("menuIcon").onclick=()=>location.href="index.html";
+function formatNumber(x){if(x===undefined||x===null||isNaN(Number(x)))return"0.00";let n=Number(x);return n.toFixed(2);}
+function updateNumber(x){crashValue.innerText=formatNumber(x);}
+const socket=new WebSocket("wss://1xlite-91918.bar/games-frame/sockets/crash?ref=1&gr=974&whence=55&fcountry=192&appGuid=games-web-host-b2c-web-v3&lng=en&v=1.5&");
+socket.onopen=()=>{
+socket.send('{"protocol":"json","version":1}\x1e');
+socket.send('{"arguments":[{"activity":30,"currency":119}],"invocationId":"0","target":"Guest","type":1}\x1e');
+setSignal(true);
+};
+socket.onmessage=(event)=>{try{const raw=event.data;const trimmed=(typeof raw==="string"&&raw.length>0&&raw.charCodeAt(raw.length-1)===30)?raw.slice(0,-1):raw;const data=JSON.parse(trimmed);if(data.target==="OnCrash"){const f=data.arguments&&data.arguments[0]&&data.arguments[0].f;updateNumber(f);}}catch(e){}};
+socket.onclose=()=>setSignal(false);
+socket.onerror=()=>setSignal(false);
+</script>
+</body>
+</html>
