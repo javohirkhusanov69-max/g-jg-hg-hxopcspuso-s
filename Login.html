@@ -140,7 +140,7 @@
 <!-- Loading overlay -->
 <div id="loadingOverlay">
   <div class="spinner"></div>
-  <div id="loadingText">Connecting...</div>
+  <div id="loadingText">connecting...</div>
 </div>
 
 <canvas id="matrix"></canvas>
@@ -166,7 +166,7 @@ const canvas = document.getElementById("matrix");
 const ctx = canvas.getContext("2d");
 canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
-const letters = "アァカサタナハマヤャラワガザダバパイィキシチニヒミリギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレゲゼデベペオォコソトノホモヨョロゴゾドボポ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+const letters = "QWERTYUIOPOASDFGHJKLGZXCVBNM1234567890";
 const fontSize = 14;
 const columns = canvas.width / fontSize;
 const drops = [];
