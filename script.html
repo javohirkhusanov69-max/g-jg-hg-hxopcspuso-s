@@ -17,7 +17,7 @@
     .bottom-bar { position:fixed; bottom:0; left:0; z-index:2; width:100%; height:75px; display:flex; justify-content:center; align-items:center; gap:18px; }
     #time { font-size:1.4em; position:absolute; left:50%; transform:translateX(-50%); color:white; pointer-events:none; }
     .avi-img { width:190px; height:auto; margin-top:10px; margin-bottom:450px; position:relative; z-index:2; transition:all .3s ease; }
-    .orbit-container { position:relative; width:300px; height:300px; display:flex; justify-content:center; align-items:center; margin-top:260px; transition:margin-top .3s ease; }
+    .orbit-container { position:relative; width:300px; height:300px; display:flex; justify-content:center; align-items:center; margin-top:320px; transition:margin-top .3s ease; }
     canvas { position:absolute; width:100%; height:100%; top:0; left:0; }
     #crashValue { position:absolute; font-size:2.6em; color:#fff; text-align:center; z-index:3; pointer-events:none; }
     #signalStatus { position:absolute; bottom:219px; left:50%; transform:translateX(-50%); background:gray; color:#fff; font-size:18px; padding:14px 10px; min-width:120px; border-radius:10px; text-align:center; z-index:9999; display:flex; justify-content:center; align-items:center; gap:8px; }
@@ -41,7 +41,7 @@
   <div class="bottom-bar-bg"></div>  <div class="top-bar">
     <span id="animatedText" class="white-glow">B¥ŦRØX PRΞDICŦØR</span>
   </div>  <div id="signalStatus" class="white-glow">SIGNAL OFF</div>  <div class="orbit-container" id="orbitContainer">
-    <img src="" class="avi-img" id="aviImg" alt="https://bytroxx.zya.me/images/Logo.png" />
+    <img src="" class="avi-img" id="aviImg" alt="" />
     <canvas id="orbitCanvas"></canvas>
     <p id="crashValue" class="white-glow">0.00</p>
   </div>  <div class="bottom-bar">
