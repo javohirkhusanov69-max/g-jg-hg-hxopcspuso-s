@@ -55,7 +55,7 @@
     const animatedText = document.getElementById("animatedText");
     function showNextText(){ animatedText.style.transition="opacity 1s"; animatedText.style.opacity=0; setTimeout(()=>{ currentIndex=(currentIndex+1)%texts.length; animatedText.innerText=texts[currentIndex]; animatedText.style.opacity=1; setTimeout(showNextText,2000); },1000); }
     setTimeout(showNextText,2000);
-    function adjustOrbitMargin(){ const orbit=document.getElementById("orbitContainer"); orbit.style.marginTop="390px"; }
+    function adjustOrbitMargin(){ const orbit=document.getElementById("orbitContainer"); orbit.style.marginTop="340px"; }
     adjustOrbitMargin(); window.addEventListener("resize",adjustOrbitMargin);
     const crashValue=document.getElementById("crashValue");
     const signalStatus=document.getElementById("signalStatus");
