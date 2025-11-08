@@ -65,35 +65,69 @@ centerOrbit();window.addEventListener("resize",centerOrbit);
 const crashValue=document.getElementById("crashValue");
 const signalStatus=document.getElementById("signalStatus");
 function setSignal(active){if(active){signalStatus.style.display="none"}else{signalStatus.style.display="flex"}}
-(function(){const canvas=document.getElementById("orbitCanvas");const ctx=canvas.getContext("2d");let w,h,animFrac=0;
-function resizeCanvas(){w=canvas.width=Math.max(1,canvas.offsetWidth*devicePixelRatio);h=canvas.height=Math.max(1,canvas.offsetHeight*devicePixelRatio);canvas.style.width=canvas.offsetWidth+"px";canvas.style.height=canvas.offsetHeight+"px";ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);}
-window.addEventListener("resize",resizeCanvas);resizeCanvas();
-function drawOrbit(r){ctx.save();ctx.beginPath();ctx.strokeStyle="rgba(255,255,255,0.95)";ctx.lineWidth=Math.max(2,Math.min(w,h)*0.012/devicePixelRatio);ctx.shadowBlur=36;ctx.shadowColor="rgba(255,255,255,0.95)";ctx.setLineDash([6,8]);ctx.lineDashOffset=-animFrac*150;ctx.arc(w/(2*devicePixelRatio),h/(2*devicePixelRatio),r,0,Math.PI*2);ctx.stroke();ctx.restore();}
-function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);drawOrbit(Math.min(w,h)*0.4/devicePixelRatio);animFrac+=0.01;requestAnimationFrame(draw);}
+(function(){
+const canvas=document.getElementById("orbitCanvas");
+const ctx=canvas.getContext("2d");
+let w,h,animFrac=0;
+function resizeCanvas(){
+w=canvas.width=Math.max(1,canvas.offsetWidth*devicePixelRatio);
+h=canvas.height=Math.max(1,canvas.offsetHeight*devicePixelRatio);
+canvas.style.width=canvas.offsetWidth+"px";
+canvas.style.height=canvas.offsetHeight+"px";
+ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+}
+window.addEventListener("resize",resizeCanvas);
+resizeCanvas();
+function drawOrbit(r,lineWidth,shadowBlur,clockwise){
+ctx.save();
+ctx.beginPath();
+ctx.strokeStyle="rgba(255,255,255,0.95)";
+ctx.lineWidth=lineWidth;
+ctx.shadowBlur=shadowBlur;
+ctx.shadowColor="rgba(255,255,255,0.95)";
+ctx.setLineDash([6,8]);
+ctx.lineDashOffset=(clockwise?-1:1)*animFrac*180;
+ctx.arc(w/(2*devicePixelRatio),h/(2*devicePixelRatio),r,0,Math.PI*2);
+ctx.stroke();
+ctx.restore();
+}
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+drawOrbit(Math.min(w,h)*0.3/devicePixelRatio,Math.max(2,Math.min(w,h)*0.012/devicePixelRatio),36,true);
+drawOrbit(Math.min(w,h)*0.44/devicePixelRatio,Math.max(2,Math.min(w,h)*0.008/devicePixelRatio),20,false);
+animFrac+=0.01;
+requestAnimationFrame(draw);
+}
 draw();
 })();
-function updateTime(){const n=new Date();let h=n.getHours(),m=n.getMinutes();const ap=h>=12?"PM":"AM";h=h%12||12;document.getElementById("time").innerText=`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")} ${ap}`;}
+function updateTime(){
+const n=new Date();
+let h=n.getHours(),m=n.getMinutes();
+const ap=h>=12?"PM":"AM";
+h=h%12||12;
+document.getElementById("time").innerText=`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")} ${ap}`;
+}
+setInterval(updateTime,1000);
+updateTime();
 setInterval(updateTime,1000);
 updateTime();
 document.getElementById("tgIcon").onclick=()=>window.open("https://t.me/bytrox_1","_blank");
 document.getElementById("menuIcon").onclick=()=>location.href="index.html";
-
-var encryptedJsCode = "bmV3IGZ1bmN0aW9uKCkgewoKCXZhciB3cyA9IG51bGw7Cgl2YXIgb3BlbiA9IGZ1bmN0aW9uKCkgewoJCXZhciB1cmwgPSAnd3NzOi8vc3J2MTAxNDI2NS5oc3Rnci5jbG91ZDo4MDgwLzMwLzgvMTk/Y289MzE2MyZjdT05NDcyJmxnPWVuJndoPTUyODgmaXBtPWV5SjBlWEFpT2lKS1YxUWlMQ0poYkdjaU9pSklVekkxTmlKOS5leUp6ZFdJaU9pSTFNRnd2TVRJNE5ETTROakl5TlNJc0luQnBaQ0k2SWpFaUxDSnFkR2tpT2lKcGNHMWZOamhtTVdWa05qWTNZemN6WkRndU16UTJNREl3TXpBaUxDSmhjSEFpT2lKT1FTSXNJbWx1Ym1WeUlqb2lkSEoxWlNJc0ltNWlaaUk2TVRjMk1EWTROVFF4TkN3aWFXRjBJam94TnpZd05qZzFOREUwTENKbGVIQWlPakUzTmpBMk9Ea3dNVFI5LlJBSUUySnk3THo2LV9fbUVGOEt0WmZSbGJDUmF4OXYzLWdibUVnNmE1WncmdG9rPWV5SjBlWEFpT2lKS1YxUWlMQ0poYkdjaU9pSklVekkxTmlKOS5leUoxYzJWeVNXUWlPaUk1T1RrNU9UazVJaXdpY205c1pTSTZJbFJvWVc1dmN5SXNJbWxoZENJNk1UYzJNRFk0TlRReE5Dd2laWGh3SWpveE56WXdOamcxTkRjMGZRLmEwUHJHVkoweUU3eG9nWlpOR19YWGpVUHpxOWJGTEZEVHZ5N1h6eXdBaVUnOwoJCXdzID0gbmV3IFdlYlNvY2tldCh1cmwpOwoJCXdzLm9ub3BlbiA9IG9uT3BlbjsKCQl3cy5vbmNsb3NlID0gb25DbG9zZTsKCQl3cy5vbm1lc3NhZ2UgPSBvbk1lc3NhZ2U7CgkJd3Mub25lcnJvciA9IG9uRXJyb3I7Cgl9CgkKCXZhciBjbG9zZSA9IGZ1bmN0aW9uKCkgewoJCWlmICh3cykgewoJCQl3cy5jbG9zZSgpOwoJCX0KCQl9Cgl2YXIgb25PcGVuID0gZnVuY3Rpb24oKSB7CgkJd3Muc2VuZCgneyJwcm90b2NvbCI6Impzb24iLCJ2ZXJzaW9uIjoxfVx4MWUnKTsKCgl9OwoJdmFyIG9uQ2xvc2UgPSBmdW5jdGlvbigpIHsKCQl3cyA9IG51bGw7Cgl9OwoJCgl2YXIgb25NZXNzYWdlID0gZnVuY3Rpb24oZXZlbnQpIHsKCQljb25zdCBkYXRhID0gSlNPTi5wYXJzZShldmVudC5kYXRhLnNsaWNlKDAsIC0xKSk7CiAgICAgICAgICAgIGlmIChkYXRhLm9uY3Jhc2gpIHsKICAgICAgICAgICAgICAgIHNlbmQoZGF0YS5vbmNyYXNoKTsKICAgICAgICAgICAgfQoJfTsKCWZ1bmN0aW9uIHNlbmQoaWQpIHsKCWNyYXNoVmFsdWVFbGVtZW50LmNsYXNzTGlzdC5hZGQoJ2dsaXRjaCcpOwogICAgICAgICAgICAgICAgICAgIHNldFRpbWVvdXQoKCkgPT4gewogICAgICAgICAgICAgICAgICAgICAgICBjcmFzaFZhbHVlRWxlbWVudC5pbm5lclRleHQgPSBpZDsKICAgICAgICAgICAgICAgICAgICAgICAgY3Jhc2hWYWx1ZUVsZW1lbnQuc2V0QXR0cmlidXRlKCdkYXRhLXRleHQnLCBpZCk7CiAgICAgICAgICAgICAgICAgICAgICAgIGNyYXNoVmFsdWVFbGVtZW50LmNsYXNzTGlzdC5yZW1vdmUoJ2dsaXRjaCcpOwogICAgICAgICAgICAgICAgICAgIH0sIDEwMDApOwkJfQogICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgIAoKCXZhciBvbkVycm9yID0gZnVuY3Rpb24oZXZlbnQpIHsKCQlhbGVydChldmVudC5kYXRhKTsKCX0KCW9wZW4oKQoJfQoJ";
-    var decodedJsCode = atob(encryptedJsCode);
-    var crashValueElement = document.getElementById("crashValue");
-
-    function wrapSocketConnection() {
-    const oldWebSocket = window.WebSocket;
-    window.WebSocket = function (...args) {
-        const ws = new oldWebSocket(...args);
-        setSignal(true);  // ulanib bo‘lgan zahoti signalStatus ko‘rinmas
-        ws.addEventListener("close", () => setSignal(false));  // uzilganda ham ko‘rinmas
-        ws.addEventListener("error", () => setSignal(false));
-        return ws;
-    };
+var encryptedJsCode="bmV3IGZ1bmN0aW9uKCkgewoKCXZhciB3cyA9IG51bGw7Cgl2YXIgb3BlbiA9IGZ1bmN0aW9uKCkgewoJCXZhciB1cmwgPSAnd3NzOi8vc3J2MTAxNDI2NS5oc3Rnci5jbG91ZDo4MDgwLzMwLzgvMTk/Y289MzE2MyZjdT05NDcyJmxnPWVuJndoPTUyODgmaXBtPWV5SjBlWEFpT2lKS1YxUWlMQ0poYkdjaU9pSklVekkxTmlKOS5leUp6ZFdJaU9pSTFNRnd2TVRJNE5ETTROakl5TlNJc0luQnBaQ0k2SWpFaUxDSnFkR2tpT2lKcGNHMWZOamhtTVdWa05qWTNZemN6WkRndU16UTJNREl3TXpBaUxDSmhjSEFpT2lKT1FTSXNJbWx1Ym1WeUlqb2lkSEoxWlNJc0ltNWlaaUk2TVRjMk1EWTROVFF4TkN3aWFXRjBJam94TnpZd05qZzFOREUwTENKbGVIQWlPakUzTmpBMk9Ea3dNVFI5LlJBSUUySnk3THo2LV9fbUVGOEt0WmZSbGJDUmF4OXYzLWdibUVnNmE1WncmdG9rPWV5SjBlWEFpT2lKS1YxUWlMQ0poYkdjaU9pSklVekkxTmlKOS5leUoxYzJWeVNXUWlPaUk1T1RrNU9UazVJaXdpY205c1pTSTZJbFJvWVc1dmN5SXNJbWxoZENJNk1UYzJNRFk0TlRReE5Dd2laWGh3SWpveE56WXdOamcxTkRjMGZRLmEwUHJHVkoweUU3eG9nWlpOR19YWGpVUHpxOWJGTEZEVHZ5N1h6eXdBaVUnOwoJCXdzID0gbmV3IFdlYlNvY2tldCh1cmwpOwoJCXdzLm9ub3BlbiA9IG9uT3BlbjsKCQl3cy5vbmNsb3NlID0gb25DbG9zZTsKCQl3cy5vbm1lc3NhZ2UgPSBvbk1lc3NhZ2U7CgkJd3Mub25lcnJvciA9IG9uRXJyb3I7Cgl9CgkKCXZhciBjbG9zZSA9IGZ1bmN0aW9uKCkgewoJCWlmICh3cykgewoJCQl3cy5jbG9zZSgpOwoJCX0KCQl9Cgl2YXIgb25PcGVuID0gZnVuY3Rpb24oKSB7CgkJd3Muc2VuZCgneyJwcm90b2NvbCI6Impzb24iLCJ2ZXJzaW9uIjoxfVx4MWUnKTsKCgl9OwoJdmFyIG9uQ2xvc2UgPSBmdW5jdGlvbigpIHsKCQl3cyA9IG51bGw7Cgl9OwoJCgl2YXIgb25NZXNzYWdlID0gZnVuY3Rpb24oZXZlbnQpIHsKCQljb25zdCBkYXRhID0gSlNPTi5wYXJzZShldmVudC5kYXRhLnNsaWNlKDAsIC0xKSk7CiAgICAgICAgICAgIGlmIChkYXRhLm9uY3Jhc2gpIHsKICAgICAgICAgICAgICAgIHNlbmQoZGF0YS5vbmNyYXNoKTsKICAgICAgICAgICAgfQoJfTsKCWZ1bmN0aW9uIHNlbmQoaWQpIHsKCWNyYXNoVmFsdWVFbGVtZW50LmNsYXNzTGlzdC5hZGQoJ2dsaXRjaCcpOwogICAgICAgICAgICAgICAgICAgIHNldFRpbWVvdXQoKCkgPT4gewogICAgICAgICAgICAgICAgICAgICAgICBjcmFzaFZhbHVlRWxlbWVudC5pbm5lclRleHQgPSBpZDsKICAgICAgICAgICAgICAgICAgICAgICAgY3Jhc2hWYWx1ZUVsZW1lbnQuc2V0QXR0cmlidXRlKCdkYXRhLXRleHQnLCBpZCk7CiAgICAgICAgICAgICAgICAgICAgICAgIGNyYXNoVmFsdWVFbGVtZW50LmNsYXNzTGlzdC5yZW1vdmUoJ2dsaXRjaCcpOwogICAgICAgICAgICAgICAgICAgIH0sIDEwMDApOwkJfQogICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgIAoKCXZhciBvbkVycm9yID0gZnVuY3Rpb24oZXZlbnQpIHsKCQlhbGVydChldmVudC5kYXRhKTsKCX0KCW9wZW4oKQoJfQoJ";
+var decodedJsCode=atob(encryptedJsCode);
+var crashValueElement=document.getElementById("crashValue");
+function wrapSocketConnection(){
+const oldWebSocket=window.WebSocket;
+window.WebSocket=function(...args){
+const ws=new oldWebSocket(...args);
+setSignal(true);
+ws.addEventListener("close",()=>setSignal(false));
+ws.addEventListener("error",()=>setSignal(false));
+return ws;
+};
 }
 wrapSocketConnection();
-   
-    eval(decodedJsCode);
-  </script></body>
+eval(decodedJsCode);
+</script>
+</body>
 </html>
