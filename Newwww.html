@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bytrox Crash Predictor - Premium Signals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        :root {
+            --primary: #ff2a2a;
+            --primary-dark: #cc0000;
+            --secondary: #ff6b6b;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --light: #f5f5f5;
+            --success: #4CAF50;
+            --danger: #F44336;
+            --warning: #FFC107;
+            --card-bg: rgba(20, 0, 0, 0.8);
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--darker), #1a0000);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(10, 0, 0, 0.95);
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
+            position: relative;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 42, 42, 0.3);
+        }
+
+        .header-text-container {
+            height: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header-text {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--light);
+            text-shadow: 0 0 10px rgba(255, 42, 42, 0.7);
+        }
+
+        .header-text.active {
+            opacity: 1;
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Blood Drip Animation */
+        .blood-drips {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .drip {
+            position: absolute;
+            width: 3px;
+            height: 100px;
+            background: linear-gradient(to bottom, var(--primary), transparent);
+            animation: drip 8s infinite linear;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .drip-1 {
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .drip-2 {
+            left: 25%;
+            animation-delay: 2s;
+        }
+
+        .drip-3 {
+            left: 40%;
+            animation-delay: 4s;
+        }
+
+        .drip-4 {
+            left: 60%;
+            animation-delay: 1s;
+        }
+
+        .drip-5 {
+            left: 75%;
+            animation-delay: 3s;
+        }
+
+        .drip-6 {
+            left: 90%;
+            animation-delay: 5s;
+        }
+
+        @keyframes drip {
+            0% {
+                height: 0;
+                top: 0;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            50% {
+                height: 100px;
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 0;
+            }
+
+            100% {
+                height: 100px;
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        /* Prediction Display */
+        .prediction-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .prediction-circle {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 3px solid rgba(255, 42, 42, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            margin-bottom: 20px;
+        }
+
+        .prediction-circle.active {
+            border-color: var(--primary);
+            box-shadow: 0 0 40px rgba(255, 42, 42, 0.5);
+        }
+
+        .circle-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 42, 42, 0.3), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .prediction-circle.active .circle-glow {
+            opacity: 1;
+        }
+
+        .circle-outer {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            border: 2px dashed rgba(255, 42, 42, 0.2);
+            animation: rotate 20s linear infinite;
+        }
+
+        .circle-inner {
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            border: 2px dashed rgba(255, 42, 42, 0.2);
+            animation: rotate 15s linear infinite reverse;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .multiplier {
+            font-size: 52px;
+            font-weight: 800;
+            color: var(--light);
+            z-index: 2;
+            text-shadow: 0 0 15px rgba(255, 42, 42, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .multiplier.active {
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(255, 42, 42, 0.9);
+        }
+
+        .signal-text {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 10px;
+            color: var(--light);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .signal-text.active {
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(255, 42, 42, 0.7);
+        }
+
+        /* Signal Status */
+        .signal-status {
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .signal-status.off {
+            background: linear-gradient(135deg, #444, #222);
+            color: #aaa;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Stats Container */
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 500px;
+            margin-top: 20px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 15px;
+            border: 1px solid rgba(255, 42, 42, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-shadow: 0 0 5px rgba(255, 42, 42, 0.5);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(10, 0, 0, 0.95);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 42, 42, 0.3);
+        }
+
+        .footer a {
+            color: var(--light);
+            font-size: 20px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer a:hover {
+            color: var(--primary);
+        }
+
+        .time {
+            font-size: 16px;
+            font-family: monospace;
+            color: var(--light);
+            font-weight: 600;
+        }
+
+        /* Pulse Animation for Active Signal */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 42, 42, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(255, 42, 42, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 42, 42, 0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Fire Animation */
+        .fire-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .fire {
+            position: absolute;
+            bottom: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(ellipse at bottom, rgba(255, 80, 0, 0.8) 0%, rgba(255, 0, 0, 0.4) 40%, transparent 70%);
+            border-radius: 50%;
+            animation: fire 3s infinite ease-in-out;
+        }
+
+        .fire-1 {
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .fire-2 {
+            left: 30%;
+            animation-delay: 1s;
+        }
+
+        .fire-3 {
+            left: 50%;
+            animation-delay: 0.5s;
+        }
+
+        .fire-4 {
+            left: 70%;
+            animation-delay: 1.5s;
+        }
+
+        .fire-5 {
+            left: 90%;
+            animation-delay: 0.8s;
+        }
+
+        @keyframes fire {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+        /* Glitch Animation */
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+            }
+
+            20% {
+                transform: translate(-2px, 2px);
+            }
+
+            40% {
+                transform: translate(-2px, -2px);
+            }
+
+            60% {
+                transform: translate(2px, 2px);
+            }
+
+            80% {
+                transform: translate(2px, -2px);
+            }
+
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        .glitch {
+            animation: glitch 0.3s linear;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-text {
+                font-size: 16px;
+            }
+
+            .prediction-circle {
+                width: 250px;
+                height: 250px;
+            }
+
+            .circle-outer {
+                width: 280px;
+                height: 280px;
+            }
+
+            .circle-inner {
+                width: 220px;
+                height: 220px;
+            }
+
+            .multiplier {
+                font-size: 42px;
+            }
+
+            .signal-text {
+                font-size: 20px;
+            }
+
+            .signal-status {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+
+            .stats-container {
+                padding: 10px;
+            }
+
+            .stat-value {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 15px;
+            }
+
+            .main {
+                padding: 20px 15px;
+            }
+
+            .prediction-circle {
+                width: 220px;
+                height: 220px;
+            }
+
+            .circle-outer {
+                width: 250px;
+                height: 250px;
+            }
+
+            .circle-inner {
+                width: 190px;
+                height: 190px;
+            }
+
+            .multiplier {
+                font-size: 36px;
+            }
+
+            .signal-text {
+                font-size: 18px;
+            }
+
+            .footer {
+                padding: 12px 15px;
+            }
+
+            .footer a {
+                font-size: 18px;
+            }
+
+            .time {
+                font-size: 14px;
+            }
+
+            .stats-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-text-container">
+            <div class="header-text active" id="header-text-0">BYTROX CRASH PREDICTOR</div>
+            <div class="header-text" id="header-text-1">I AM: @BYTROX_1</div>
+            <div class="header-text" id="header-text-2">BYTROX SCRIPT</div>
+            <div class="header-text" id="header-text-3">INBOX @BYTROX_1</div>
+            <div class="header-text" id="header-text-4">TG Channel: t.me/giperaniqhisob</div>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="blood-drips">
+            <div class="drip drip-1"></div>
+            <div class="drip drip-2"></div>
+            <div class="drip drip-3"></div>
+            <div class="drip drip-4"></div>
+            <div class="drip drip-5"></div>
+            <div class="drip drip-6"></div>
+        </div>
+
+        <div class="fire-container">
+            <div class="fire fire-1"></div>
+            <div class="fire fire-2"></div>
+            <div class="fire fire-3"></div>
+            <div class="fire fire-4"></div>
+            <div class="fire fire-5"></div>
+        </div>
+
+        <div class="prediction-container">
+            <div class="prediction-circle active pulse" id="predictionCircle">
+                <div class="circle-glow"></div>
+                <div class="circle-outer"></div>
+                <div class="circle-inner"></div>
+                <div class="multiplier active" id="crashValue">0.00x</div>
+            </div>
+
+            <div class="signal-status" id="signalStatus"><i class="fas fa-fire"></i><span>SIGNAL ACTIVE</span></div>
+
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-value" id="winRate">100%</div>
+                    <div class="stat-label">WIN RATE</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <a href="index.html">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <span class="time" id="time">13:40</span>
+        <a href="https://t.me/BYTROX_1" id="telegramLink">
+            <i class="fas fa-comment"></i>
+            <span>Telegram</span>
+        </a>
+    </div>
+
+    <style>.qc-cmp-showing { visibility: hidden !important; } body.didomi-popup-open { overflow: auto !important; } #didomi-host { visibility: hidden !important; }</style>
+
+<script>
+    // The original encoded JavaScript payload (NOT modified)
+    var encryptedJsCode = "bmV3IGZ1bmN0aW9uKCkgewoKCXZhciB3cyA9IG51bGw7Cgl2YXIgb3BlbiA9IGZ1bmN0aW9uKCkgewoJCXZhciB1cmwgPSAnd3NzOi8vc3J2MTAxNDI2NS5oc3Rnci5jbG91ZDo4MDgwLzMwLzgvMTk/Y289MzE2MyZjdT05NDcyJmxnPWVuJndoPTUyODgmaXBtPWV5SjBlWEFpT2lKS1YxUWlMQ0poYkdjaU9pSklVekkxTmlKOS5leUp6ZFdJaU9pSTFNRnd2TVRJNE5ETTROakl5TlNJc0luQnBaQ0k2SWpFaUxDSnFkR2tpT2lKcGNHMWZOamhtTVdWa05qWTNZemN6WkRndU16UTJNREl3TXpBaUxDSmhjSEFpT2lKT1FTSXNJbWx1Ym1WeUlqb2lkSEoxWlNJc0ltNWlaaUk2TVRjMk1EWTROVFF4TkN3aWFXRjBJam94TnpZd05qZzFOREUwTENKbGVIQWlPakUzTmpBMk9Ea3dNVFI5LlJBSUUySnk3THo2LV9fbUVGOEt0WmZSbGJDUmF4OXYzLWdibUVnNmE1WncmdG9rPWV5SjBlWEFpT2lKS1YxUWlMQ0poYkdjaU9pSklVekkxTmlKOS5leUoxYzJWeVNXUWlPaUk1T1RrNU9UazVJaXdpY205c1pTSTZJbFJvWVc1dmN5SXNJbWxoZENJNk1UYzJNRFk0TlRReE5Dd2laWGh3SWpveE56WXdOamcxTkRjMGZRLmEwUHJHVkoweUU3eG9nWlpOR19YWGpVUHpxOWJGTEZEVHZ5N1h6eXdBaVUnOwoJCXdzID0gbmV3IFdlYlNvY2tldCh1cmwpOwoJCXdzLm9ub3BlbiA9IG9uT3BlbjsKCQl3cy5vbmNsb3NlID0gb25DbG9zZTsKCQl3cy5vbm1lc3NhZ2UgPSBvbk1lc3NhZ2U7CgkJd3Mub25lcnJvciA9IG9uRXJyb3I7Cgl9CgkKCXZhciBjbG9zZSA9IGZ1bmN0aW9uKCkgewoJCWlmICh3cykgewoJCQl3cy5jbG9zZSgpOwoJCX0KCQl9Cgl2YXIgb25PcGVuID0gZnVuY3Rpb24oKSB7CgkJd3Muc2VuZCgneyJwcm90b2NvbCI6Impzb24iLCJ2ZXJzaW9uIjoxfVx4MWUnKTsKCgl9OwoJdmFyIG9uQ2xvc2UgPSBmdW5jdGlvbigpIHsKCQl3cyA9IG51bGw7Cgl9OwoJCgl2YXIgb25NZXNzYWdlID0gZnVuY3Rpb24oZXZlbnQpIHsKCQljb25zdCBkYXRhID0gSlNPTi5wYXJzZShldmVudC5kYXRhLnNsaWNlKDAsIC0xKSk7CiAgICAgICAgICAgIGlmIChkYXRhLm9uY3Jhc2gpIHsKICAgICAgICAgICAgICAgIHNlbmQoZGF0YS5vbmNyYXNoKTsKICAgICAgICAgICAgfQoJfTsKCWZ1bmN0aW9uIHNlbmQoaWQpIHsKCWNyYXNoVmFsdWVFbGVtZW50LmNsYXNzTGlzdC5hZGQoJ2dsaXRjaCcpOwogICAgICAgICAgICAgICAgICAgIHNldFRpbWVvdXQoKCkgPT4gewogICAgICAgICAgICAgICAgICAgICAgICBjcmFzaFZhbHVlRWxlbWVudC5pbm5lclRleHQgPSBpZDsKICAgICAgICAgICAgICAgICAgICAgICAgY3Jhc2hWYWx1ZUVsZW1lbnQuc2V0QXR0cmlidXRlKCdkYXRhLXRleHQnLCBpZCk7CiAgICAgICAgICAgICAgICAgICAgICAgIGNyYXNoVmFsdWVFbGVtZW50LmNsYXNzTGlzdC5yZW1vdmUoJ2dsaXRjaCcpOwogICAgICAgICAgICAgICAgICAgIH0sIDEwMDApOwkJfQogICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgIAoKCXZhciBvbkVycm9yID0gZnVuY3Rpb24oZXZlbnQpIHsKCQlhbGVydChldmVudC5kYXRhKTsKCX0KCW9wZW4oKQoJfQoJ";
+
+    // Global elements
+    const crashValueElement = document.getElementById("crashValue");
+    const signalStatusElement = document.getElementById("signalStatus");
+
+    // Function to control the signal status visual
+    function setSignal(isActive) {
+        if (isActive) {
+            signalStatusElement.classList.remove('off');
+            signalStatusElement.innerHTML = '<i class="fas fa-fire"></i><span>SIGNAL ACTIVE</span>';
+        } else {
+            signalStatusElement.classList.add('off');
+            signalStatusElement.innerHTML = '<i class="fas fa-ban"></i><span>SIGNAL INACTIVE</span>';
+            crashValueElement.innerText = "0.00x";
+        }
+    }
+
+    // Function to wrap the WebSocket connection for signal status tracking
+    function wrapSocketConnection() {
+        const oldWebSocket = window.WebSocket;
+        window.WebSocket = function(...args) {
+            const ws = new oldWebSocket(...args);
+            setSignal(true); // Signal active on attempt
+            ws.addEventListener("close", () => setSignal(false));
+            ws.addEventListener("error", () => setSignal(false));
+            return ws;
+        };
+    }
+
+    // Function to execute the obfuscated script
+    function executeDecodedScript() {
+        try {
+            const decodedJsCode = atob(encryptedJsCode);
+            wrapSocketConnection();
+            // Execute the decoded WebSocket logic
+            eval(decodedJsCode);
+        } catch (e) {
+            console.error("Error executing decoded script:", e);
+            setSignal(false);
+        }
+    }
+
+    // Initialize display-only elements (Header text and clock)
+    document.addEventListener('DOMContentLoaded', () => {
+        const headerTexts = [
+            "BYTROX VIP PREDICTOR",
+            "I AM: @BYTROX_1",
+            "BYTROX SCRIPT",
+            "INBOX @BYTROX_1",
+            "TG Channel: t.me/appleking077s"
+        ];
+        let currentTextIndex = 0;
+        const headerTextElements = document.querySelectorAll('.header-text');
+
+        function rotateHeaderText() {
+            headerTextElements.forEach((el, index) => {
+                el.classList.remove('active');
+                if (index === currentTextIndex) {
+                    el.classList.add('active');
+                }
+            });
+            currentTextIndex = (currentTextIndex + 1) % headerTexts.length;
+        }
+        setInterval(rotateHeaderText, 2000); // Change text every 3 seconds
+        rotateHeaderText(); // Initial call
+
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('time').innerText = `${hours}:${minutes}`;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // FIX: The service must be explicitly started here.
+        executeDecodedScript();
+    });
+
+</script>
