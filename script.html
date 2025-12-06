@@ -1,28 +1,26 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BYTROX SCRIPT</title>
   <style>
-    @font-face {font-family: "CustomBold";src: url("bold.ttf") format("truetype");font-weight: 900;}
-    body, html {height: 100%;margin: 0;display: flex;flex-direction: column;justify-content: space-between;align-items: center;font-family: "CustomBold", Arial, sans-serif;background: #fff;color: #000;}
+    body, html {height: 100%;margin: 0;display: flex;flex-direction: column;justify-content: space-between;align-items: center;background: #fff;color: #000;}
     #fadeOverlay {position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: #000;z-index: 999999;pointer-events: none;opacity: 1;transition: opacity 3s ease;}
     .fade-out {opacity: 0;visibility: hidden;}
-    .top-bar-bg {width: 100%;height: 75px;background: red;box-shadow: 0 0 10px #FF3B3B, 0 0 20px #FF3B3B;position: fixed;top: 0;left: 0;z-index: 1;}
-    .bottom-bar-bg {width: 100%;height: 75px;background: white;box-shadow: 0 -0.1px 5px grey;position: fixed;bottom: 0;left: 0;z-index: 1;}
-    .top-bar {width: 100%;height: 75px;display: flex;justify-content: center;align-items: center;font-size: 2em;color: white;position: fixed;top: 0;left: 0;z-index: 2;}
-    .bottom-bar {width: 100%;height: 75px;position: fixed;bottom: 0;left: 0;z-index: 2;display: flex;justify-content: center;align-items: center;}
+    .top-bar-bg {width: 100%;height: 55px;background: red;box-shadow: 0 0 10px #FF3B3B, 0 0 20px #FF3B3B;position: fixed;top: 0;left: 0;z-index: 1;}
+    .bottom-bar-bg {width: 100%;height: 55px;background: white;box-shadow: 0 -0.1px 5px grey;position: fixed;bottom: 0;left: 0;z-index: 1;}
+    .top-bar {width: 100%;height: 55px;display: flex;justify-content: center;align-items: center;font-size: 2em;color: white;position: fixed;top: 0;left: 0;z-index: 2;}
+    .bottom-bar {width: 100%;height: 55px;position: fixed;bottom: 0;left: 0;z-index: 2;display: flex;justify-content: center;align-items: center;}
     #time {font-size: 1.4em;position: absolute;left: 50%;transform: translateX(-50%);color: black;}
-    #menuIcon {position: absolute;left: 25px;}
-    #tgImg {position: absolute;right: 29px;}
-    .circle-icon {width: 40px;height: 40px;border-radius: 50%;cursor: pointer;object-fit: cover;}
-    .avi-img {width: 190px;height: auto;margin-top: 10px;margin-bottom: 450px;position: relative;z-index: 2;transition: all 0.3s ease;}
+    #menuIcon {position: absolute;left: 40px;}
+    #tgImg {position: absolute;right:44px;}
+    .circle-icon {width: 30px;height: 30px;border-radius: 50%;cursor: pointer;object-fit: cover;}
+    .avi-img {width: 160px;height: auto;margin-top: 10px;margin-bottom: 450px;position: relative;z-index: 2;transition: all 0.3s ease;}
     .orbit-container {position: relative;width: 200px;height: 200px;display: flex;justify-content: center;align-items: center;margin-top: 460px;transition: margin-top 0.3s ease;}
-    #crashValue {position: absolute;font-size: 1.8em;color: red;text-align: center;transition: all 0.3s ease;}
+    #crashValue {position: absolute;font-size: 2em;color: red;text-align: center;transition: all 0.3s ease;}
     canvas {position: absolute;width: 100%;height: 100%;}
-    #signalStatus {position: absolute;bottom: 219px;left: 50%;transform: translateX(-50%);background: red;box-shadow: 0 0 10px #FF3B3B, 0 0 20px #FF3B3B;color: white;font-size: 18px;padding: 14px 10px;min-width: 120px;border-radius: 10px;text-align: center;z-index: 9999;display: flex;justify-content: center;align-items: center;}
-    #animatedText,#time,#crashValue,#signalStatus,button,span,div {font-family: "CustomBold", Arial, sans-serif;font-weight: 900;}
+    #signalStatus {position: absolute;bottom: 200px;left: 50%;transform: translateX(-50%);background: red;box-shadow: 0 0 10px #FF3B3B, 0 0 20px #FF3B3B;color: white;font-size: 18px;padding: 14px 10px;min-width: 130px;border-radius: 10px;text-align: center;z-index: 9999;display: flex;justify-content: center;align-items: center;}
   </style>
 </head>
 <body>
@@ -42,7 +40,6 @@
   <img id="tgImg" class="circle-icon" src="https://i.ibb.co/Q7WqGVGX/Picsart-25-09-29-21-44-26-432.jpg" alt="Telegram">
 </div>
 
-<!-- === FAQAT SIZ SO‘RAGAN FUNKSIYA === -->
 <script>
 (function() {
   const orbit = document.getElementById("orbitContainer");
@@ -55,7 +52,6 @@
   window.addEventListener("resize", adjustOrbitMargin);
 })();
 </script>
-<!-- === FUNKSIYA TUGADI === -->
 
 <script>
 window.onload = () => {document.getElementById("fadeOverlay").classList.add("fade-out");};
@@ -79,7 +75,7 @@ let signalStatus = document.getElementById("signalStatus");
 let socket = null;
 function setSignal(active) {
   if (active) {
-    signalStatus.innerHTML = 'SIGNAL ON <img src="https://i.ibb.co/CKtzJjD0/Picsart-25-09-29-22-38-29-665-removebg-preview.png" style="width:27px;height:27px;margin-left:5px;vertical-align:middle;">';
+    signalStatus.innerHTML = 'SIGNAL ON';
   } else {
     signalStatus.innerText = "SIGNAL OFF";
   }
@@ -104,7 +100,11 @@ eval(decodedJsCode);
 const canvas = document.getElementById("orbitCanvas");
 const ctx = canvas.getContext("2d");
 let w, h;
-function resizeCanvas() {w = canvas.width = canvas.offsetWidth;h = canvas.height = canvas.offsetHeight;}
+
+function resizeCanvas() {
+  w = canvas.width = canvas.offsetWidth;
+  h = canvas.height = canvas.offsetHeight;
+}
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
@@ -119,7 +119,7 @@ function drawPlane(x, y, angle, scale) {
   ctx.translate(x, y);
   ctx.rotate(angle + Math.PI / 0.09);
   ctx.scale(scale, scale);
-  ctx.drawImage(planeImg, -42, -23, 100, 100);
+  ctx.drawImage(planeImg, -33, -13, 100, 100);
   ctx.restore();
 }
 
@@ -127,6 +127,7 @@ function drawOrbit(radius, count, cw) {
   ctx.beginPath();
   ctx.arc(w / 2, h / 2, radius, 0, Math.PI * 2);
   ctx.stroke();
+
   for (let i = 0; i < count; i++) {
     let base = i / count;
     let frac = cw ? (base + animFrac) : (base - animFrac);
@@ -134,23 +135,28 @@ function drawOrbit(radius, count, cw) {
     let angle = frac * Math.PI * 2;
     let x = w / 2 + Math.cos(angle) * radius;
     let y = h / 2 + Math.sin(angle) * radius;
-    drawPlane(x, y, angle, Math.min(w, h) / 500);
+    drawPlane(x, y, angle, Math.min(w, h) / 530);
   }
 }
 
 function draw() {
   ctx.clearRect(0, 0, w, h);
+
   ctx.strokeStyle = strokeColor;
   ctx.lineWidth = Math.max(2, Math.min(w, h) * 0.01);
-  ctx.setLineDash([2, 3]);
-  ctx.lineDashOffset = animFrac * 100;
+  ctx.setLineDash([5, 5]);
+  ctx.lineDashOffset = animFrac * 400;
+
   let rOuter = Math.min(w, h) * 0.42;
   let rInner = Math.min(w, h) * 0.28;
+
   drawOrbit(rOuter, planeCountOuter, false);
   drawOrbit(rInner, planeCountInner, true);
+
   animFrac += 0.0030;
   requestAnimationFrame(draw);
 }
+
 draw();
 
 function updateTime() {
@@ -160,7 +166,9 @@ function updateTime() {
   let ampm = hours >= 12 ? "PM" : "AM";
   hours = hours % 12;
   hours = hours ? hours : 12;
-  document.getElementById("time").innerText = String(hours).padStart(2,"0")+":"+String(minutes).padStart(2,"0")+" "+ampm;
+  document.getElementById("time").innerText = 
+    String(hours).padStart(2,"0")+":"+
+    String(minutes).padStart(2,"0")+" "+ampm;
 }
 setInterval(updateTime, 1000);
 updateTime();
